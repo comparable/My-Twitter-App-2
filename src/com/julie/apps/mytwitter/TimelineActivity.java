@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.julie.apps.mytwitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -32,7 +33,7 @@ public class TimelineActivity extends Activity {
 		TwitterClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler(){
 			@Override
 			public void onSuccess(JSONArray jsonTweets) {
-				//Log.d("DEBUG", jsobTweets.toString());
+				//Log.d("DEBUG", jsonTweets.toString());
 				tweets = Tweet.fromJson(jsonTweets); 			
 				tweetAdapter = new TweetsAdapter(TimelineActivity.this, tweets);
 				lvTweets.setAdapter(tweetAdapter);
@@ -49,7 +50,7 @@ public class TimelineActivity extends Activity {
 						tweetAdapter.addAll(Tweet.fromJson(jsonTweets));
 					}
 				}, max_id);					
-				Log.d("DEBUG", "max_id "+max_id+" totalItemsCount "+totalItemsCount);				
+				//Log.d("DEBUG", "max_id "+max_id+" totalItemsCount "+totalItemsCount);				
 			}
 			
 		});
@@ -73,11 +74,23 @@ public class TimelineActivity extends Activity {
 	//get data from ComposeActivity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		  if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
-		     //Toast.makeText(this, data.getExtras().getString("tweet"),Toast.LENGTH_SHORT).show();
-			  
-			  //tweetAdapter.notifyDataSetChanged();
+			  Tweet t = (Tweet) data.getSerializableExtra("tweet");
+			  tweetAdapter.insert(t,0);
+			  tweetAdapter.notifyDataSetChanged();
 		  }
 		} 
-	
-
+	/**
+	//persist recent tweets
+	ActiveAndroid.beginTransaction();
+	try{
+		for(int i = 0; i< array.size; i++){
+			Tweet tweet = new Tweet();
+			tweet.name = ;
+			tweet.save();
+		}
+		ActiveAndroid.setTransactionSuccessful();
+	} finally {
+		ActiveAndroid.endTransaction()
+	}
+	**/
 }

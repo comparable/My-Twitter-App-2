@@ -8,6 +8,7 @@ import android.content.Context;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -41,17 +42,9 @@ public class TwitterClient extends OAuthBaseClient {
     }
     
     public void getOlderTweet(AsyncHttpResponseHandler handler, long max_id){
+    	max_id = max_id -1;
     	String url = getApiUrl("statuses/home_timeline.json?max_id="+max_id);
     	client.get(url,null,handler);
-    }
-    // CHANGE THIS
-    // DEFINE METHODS for different API endpoints here
-    public void getInterestingnessList(AsyncHttpResponseHandler handler) {
-        String apiUrl = getApiUrl("?nojsoncallback=1&method=flickr.interestingness.getList");
-        // Can specify query string params directly or through RequestParams.
-        RequestParams params = new RequestParams();
-        params.put("format", "json");
-        client.get(apiUrl, params, handler);
     }
 
 	public void postTweet(String tweet, AsyncHttpResponseHandler handler) {
@@ -62,6 +55,16 @@ public class TwitterClient extends OAuthBaseClient {
     	client.post(apiUrl, params, handler);
 		
 	}
+
+
+
+	public void getMyInfo(JsonHttpResponseHandler handler) {
+		String url = getApiUrl("users/show.json?screen_name=julie23&include_entities=true");
+    	client.get(url,null,handler);
+		
+	}
+
+	
     
     /* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
      * 	  i.e getApiUrl("statuses/home_timeline.json");

@@ -30,7 +30,7 @@ public class TweetsAdapter extends ArrayAdapter<Tweet>{
 		Tweet tweet = getItem(position);
 		
 		ImageView ivProfile = (ImageView) view.findViewById(R.id.ivProfile); 
-		TextView tvName = (TextView) view.findViewById(R.id.tvName);
+		TextView tvName = (TextView) view.findViewById(R.id.tvComposeName);
 		TextView tvBody = (TextView) view.findViewById(R.id.tvBody);
 		TextView tvId = (TextView) view.findViewById(R.id.tvId);
 		TextView tvTime = (TextView) view.findViewById(R.id.tvTime);

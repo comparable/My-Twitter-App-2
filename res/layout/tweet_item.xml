@@ -17,10 +17,10 @@
         android:id="@+id/tvId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/tvName"
-        android:layout_alignBottom="@+id/tvName"
+        android:layout_alignBaseline="@+id/tvComposeName"
+        android:layout_alignBottom="@+id/tvComposeName"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/tvName"
+        android:layout_toRightOf="@+id/tvComposeName"
         android:text="@string/textview"
         android:textColor="#808080" />
 
@@ -39,13 +39,13 @@
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvName"
+        android:layout_below="@+id/tvComposeName"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/ivProfile"
         android:text="@string/textview" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvComposeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivProfile"

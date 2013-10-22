@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/ivComposeProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
@@ -27,17 +27,6 @@
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageButton
-        android:id="@+id/btnTweet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/etTweet"
-        android:layout_below="@+id/ivComposeProfile"
-        android:layout_marginTop="70dp"
-        android:src="@drawable/btn_tweet" 
-        android:onClick="onTweet"
-        android:background="@null"/>
-
     <EditText
         android:id="@+id/etTweet"
         android:layout_width="wrap_content"
@@ -50,13 +39,25 @@
         android:ems="10"
         android:inputType="textMultiLine" />
 
+    <ImageButton
+        android:id="@+id/btnTweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/etTweet"
+        android:layout_below="@+id/etTweet"
+        android:layout_marginTop="17dp"
+        android:background="@null"
+        android:onClick="onTweet"
+        android:src="@drawable/btn_tweet" />
+
     <Button
         android:id="@+id/btnCancel"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/etTweet"
-        android:layout_alignTop="@+id/btnTweet"
+        android:layout_below="@+id/etTweet"
+        android:onClick="onCancel"
         android:text="Cancel"
         android:textSize="12sp" />
 
@@ -65,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/btnTweet"
-        android:layout_toLeftOf="@+id/btnTweet"
+        android:layout_alignRight="@+id/tvComposeName"
         android:text="Count" />
 
 </RelativeLayout>

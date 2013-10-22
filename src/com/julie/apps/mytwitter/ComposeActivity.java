@@ -1,10 +1,21 @@
 package com.julie.apps.mytwitter;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+import org.json.JSONObject;
+
+import com.julie.apps.mytwitter.models.Tweet;
+import com.julie.apps.mytwitter.models.User;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -22,22 +33,39 @@ public class ComposeActivity extends Activity {
 	Button btnCancel;
 	ImageView ivComposeProfile;
 	TextView tvComposeName;
+	User me;
+	String body;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compose);
+		me = new User();
 		setupViews();
+		onLoad();
 	}
-
+	
+	public void onLoad(){
+		TwitterClientApp.getRestClient().getMyInfo(new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(JSONObject jsonMe) {
+				me = User.fromJson(jsonMe); 
+				tvComposeName.setText(me.getName().toString());
+				ImageLoader.getInstance().displayImage(me.getProfileImageUrl(), ivComposeProfile);
+			}
+		});
+	}
+	
+	
 	public void onTweet(View view){
-		final String twt = etTweet.getText().toString();
 		
-		TwitterClientApp.getRestClient().postTweet(twt, new AsyncHttpResponseHandler() {
-		    public void onSuccess(String jsonTweetString) {
-		       
+		body = etTweet.getText().toString();
+		TwitterClientApp.getRestClient().postTweet(body, new AsyncHttpResponseHandler() {
+			public void onSuccess(String jsonTweetString) {
+				String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());			
+		        Tweet twt = new Tweet(me, body, timeStamp);
 				Intent i = new Intent();
-				i.putExtra("status", twt);
+				i.putExtra("tweet", twt);
 				setResult(RESULT_OK, i);
 				finish();
 		    }
@@ -49,6 +77,10 @@ public class ComposeActivity extends Activity {
 		    }
 		});
 		
+	}
+	
+	public void onCancel(View view){
+		finish();
 	}
 	
 	public void setupViews(){
