@@ -1,21 +1,13 @@
 package com.julie.apps.mytwitter;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.json.JSONObject;
 
-import com.julie.apps.mytwitter.models.Tweet;
-import com.julie.apps.mytwitter.models.User;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -25,6 +17,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.julie.apps.mytwitter.models.Tweet;
+import com.julie.apps.mytwitter.models.User;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ComposeActivity extends Activity {
 
@@ -50,7 +48,7 @@ public class ComposeActivity extends Activity {
 			@Override
 			public void onSuccess(JSONObject jsonMe) {
 				me = User.fromJson(jsonMe); 
-				tvComposeName.setText(me.getName().toString());
+				tvComposeName.setText("@"+me.getName().toString());
 				ImageLoader.getInstance().displayImage(me.getProfileImageUrl(), ivComposeProfile);
 			}
 		});
@@ -62,7 +60,7 @@ public class ComposeActivity extends Activity {
 		body = etTweet.getText().toString();
 		TwitterClientApp.getRestClient().postTweet(body, new AsyncHttpResponseHandler() {
 			public void onSuccess(String jsonTweetString) {
-				String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());			
+				String timeStamp = Calendar.getInstance().getTime().toString();	
 		        Tweet twt = new Tweet(me, body, timeStamp);
 				Intent i = new Intent();
 				i.putExtra("tweet", twt);

@@ -1,7 +1,10 @@
 package com.julie.apps.mytwitter.models;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,13 +24,13 @@ public class Tweet extends Model implements Serializable {
 	private static final long serialVersionUID = 5322272792772579274L;
 	
 	@Column (name = "user")
-	private User user;
+	public User user;
 	@Column (name = "body")
-	private String body;
-	@Column (name = "id")
-	private long id;
+	public String body;
+	@Column (name = "user_id")
+	public long id;
 	@Column (name = "time")
-	private String time;
+	public String time;
 	
 
     public User getUser() {
@@ -92,7 +95,24 @@ public class Tweet extends Model implements Serializable {
 
         return tweets;
     }
-
+    
+	public long getLongTime(String time) {//Mon Sep 03 13:24:14 +0000 2012
+		SimpleDateFormat formatter = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+		String dateInString = time;
+		long longTime = 0;
+		try {
+			 
+			Date date = formatter.parse(dateInString);
+			longTime = date.getTime();
+			//System.out.println(longTime);
+			//System.out.println(formatter.format(date));
+	 
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return longTime;
+	}
     
 	// Record Finders
 		public static Tweet byId(long id) {
@@ -100,7 +120,9 @@ public class Tweet extends Model implements Serializable {
 		}
 		
 		public static ArrayList<Tweet> recentItems() {
-	      return new Select().from(Tweet.class).orderBy("id DESC").limit("300").execute();
+	      return new Select().from(Tweet.class).orderBy("id DESC").limit("25").execute();
 		}
+
+	
 	
 }

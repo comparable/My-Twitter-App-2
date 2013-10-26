@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.julie.apps.mytwitter.models.Tweet;
@@ -30,14 +29,21 @@ public class TimelineActivity extends Activity {
 		setContentView(R.layout.activity_timeline);
 		lvTweets = (ListView) findViewById(R.id.lvTweets);
 		
+		
+		
 		TwitterClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler(){
-			@Override
 			public void onSuccess(JSONArray jsonTweets) {
-				//Log.d("DEBUG", jsonTweets.toString());
-				tweets = Tweet.fromJson(jsonTweets); 			
+				//if(jsonTweets == null){
+				//tweets =	Tweet.recentItems();
+				//Log.d("DEBUG","-----------loading-----------");
+				//} else {
+				tweets = Tweet.fromJson(jsonTweets);				
+				onSave();
+				//}
 				tweetAdapter = new TweetsAdapter(TimelineActivity.this, tweets);
 				lvTweets.setAdapter(tweetAdapter);
 			}
+			
 		});
 		
 		lvTweets.setOnScrollListener(new EndlessScrollListener(){
@@ -79,18 +85,43 @@ public class TimelineActivity extends Activity {
 			  tweetAdapter.notifyDataSetChanged();
 		  }
 		} 
-	/**
+	
 	//persist recent tweets
-	ActiveAndroid.beginTransaction();
-	try{
-		for(int i = 0; i< array.size; i++){
-			Tweet tweet = new Tweet();
-			tweet.name = ;
-			tweet.save();
+	public void onSave(){
+		ActiveAndroid.beginTransaction();
+		try{
+			for(int i = 0; i< tweets.size(); i++){
+				Tweet tweet = new Tweet();
+				tweet.user = tweets.get(i).getUser();
+				tweet.body = tweets.get(i).getBody();
+				tweet.id = tweets.get(i).getId();
+				tweet.time = tweets.get(i).getTime();
+				tweet.save();
+			}
+			ActiveAndroid.setTransactionSuccessful();
+		} finally {
+			ActiveAndroid.endTransaction();
 		}
-		ActiveAndroid.setTransactionSuccessful();
-	} finally {
-		ActiveAndroid.endTransaction()
 	}
-	**/
+	//Load saved tweets
+	public void onSavedTweetsLoad() {
+		if (!Tweet.recentItems().isEmpty()){
+			//tweetAdapter.addAll(Tweet.recentItems());
+			//lvTweets.setAdapter(tweetAdapter);
+			//Log.d("DEBUG",tweetAdapter.getItem(5).getBody());
+		}
+		
+	}
+	
+	public void onRefresh(MenuItem mi){
+		TwitterClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler(){
+			@Override
+			public void onSuccess(JSONArray jsonTweets) {
+				tweets = Tweet.fromJson(jsonTweets);
+				tweetAdapter = new TweetsAdapter(TimelineActivity.this, tweets);
+				lvTweets.setAdapter(tweetAdapter);
+				onSave();
+			}
+		});
+	}
 }

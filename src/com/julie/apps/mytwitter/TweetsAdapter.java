@@ -1,8 +1,10 @@
 package com.julie.apps.mytwitter;
 
 import java.util.List;
+import java.util.TimeZone;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +41,12 @@ public class TweetsAdapter extends ArrayAdapter<Tweet>{
 		tvName.setText("@"+tweet.getUser().getScreenName());
 		tvId.setText(tweet.getUser().getName());
 		tvBody.setText(tweet.getBody());
-		tvTime.setText(tweet.getTime());
-		
+		String rtime = (String) DateUtils.getRelativeDateTimeString(
+                getContext(), tweet.getLongTime(tweet.getTime()), 
+                DateUtils.SECOND_IN_MILLIS, 
+                DateUtils.WEEK_IN_MILLIS, 
+                0 );
+		tvTime.setText(rtime);
 		return view;
 	}
 
