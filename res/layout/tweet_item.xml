@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent" 
+    >
 
     <ImageView
         android:id="@+id/ivProfile"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
@@ -22,27 +23,7 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/tvComposeName"
         android:text="@string/textview"
-        android:textColor="#808080" />
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/ivProfile"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="43dp"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/tvBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvComposeName"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/ivProfile"
-        android:text="@string/textview" />
+        android:textColor="#969696" />
 
     <TextView
         android:id="@+id/tvComposeName"
@@ -53,5 +34,25 @@
         android:layout_marginLeft="10dp"
         android:text="@string/textview"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvBody"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#969696" />
+
+    <TextView
+        android:id="@+id/tvBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvComposeName"
+        android:layout_below="@+id/tvComposeName"
+        android:text="@string/textview" />
 
 </RelativeLayout>

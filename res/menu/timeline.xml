@@ -15,4 +15,12 @@
         android:icon="@drawable/ic_compose"
         android:onClick="onCompose">
     </item> 
+     <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/timeline_title"
+        android:icon="@drawable/ic_profile"
+        android:onClick="onProfileView">
+    </item>
 </menu>

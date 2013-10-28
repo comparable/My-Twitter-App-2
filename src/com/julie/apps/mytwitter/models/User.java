@@ -14,12 +14,13 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -3520317794489711230L;
 	private String name;
 	private long id;
-	private String ScreenName;
-	private String ProfileBackgroundImageUrl;
-	private int NumTweets;
-	private int FollowersCount;
-	private int FriendsCount;
+	private String screenName;
+	private String profileBackgroundImageUrl;
+	private int numTweets;
+	private int followersCount;
+	private int friendsCount;
 	private String getProfileImageUrl;
+	private String tagline;
 	
 	
 	
@@ -33,28 +34,32 @@ public class User implements Serializable {
     }
 
     public String getScreenName() {
-        return this.ScreenName;
+        return this.screenName;
     }
 
     public String getProfileBackgroundImageUrl() {
-        return this.ProfileBackgroundImageUrl;
+        return this.profileBackgroundImageUrl;
     }
 
     public int getNumTweets() {
-        return this.NumTweets;
+        return this.numTweets;
     }
 
     public int getFollowersCount() {
-        return this.FollowersCount;
+        return this.followersCount;
     }
 
     public int getFriendsCount() {
-        return this.FriendsCount;
+        return this.friendsCount;
     }
 
     public String getProfileImageUrl() {
     	return this.getProfileImageUrl;
 	}
+    
+    public String getTagline(){
+    	return this.tagline;
+    }
     
     public User(){
     	super();
@@ -67,12 +72,13 @@ public class User implements Serializable {
       	try {
       		user.id = jsonObject.getLong("id");
       		user.name = jsonObject.getString("name");
-      		user.ScreenName = jsonObject.getString("screen_name");
-      		user.ProfileBackgroundImageUrl = jsonObject.getString("profile_background_image_url");
-      		user.NumTweets = jsonObject.getInt("statuses_count");
-      		user.FollowersCount = jsonObject.getInt("followers_count");
-      		user.FriendsCount = jsonObject.getInt("friends_count");
+      		user.screenName = jsonObject.getString("screen_name");
+      		user.profileBackgroundImageUrl = jsonObject.getString("profile_background_image_url");
+      		user.numTweets = jsonObject.getInt("statuses_count");
+      		user.followersCount = jsonObject.getInt("followers_count");
+      		user.friendsCount = jsonObject.getInt("friends_count");
       		user.getProfileImageUrl = jsonObject.getString("profile_image_url");
+      		user.tagline = jsonObject.getString("description");
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;

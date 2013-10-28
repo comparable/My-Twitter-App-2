@@ -10,5 +10,6 @@
     <string name="textview">TextView</string>
     <string name="timeline_title">julie23</string>
     <string name="title_activity_compose">ComposeActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>
