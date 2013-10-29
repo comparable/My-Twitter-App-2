@@ -29,8 +29,6 @@ public class TwitterClient extends OAuthBaseClient {
     public static final String REST_CONSUMER_KEY = "vKvADc8uOZbXPZqJaQ9G1g";       // Change this
     public static final String REST_CONSUMER_SECRET = "9gOLPolRNqSA42Dw6etVRmYt2KUUcqQM7Be83PaScQ"; // Change this
     public static final String REST_CALLBACK_URL = "oauth://mytwitter"; // Change this (here and in manifest)
-    public long max_id;
-    public String screen_name;
     
     public TwitterClient(Context context) {
         super(context, REST_API_CLASS, REST_URL, REST_CONSUMER_KEY, REST_CONSUMER_SECRET, REST_CALLBACK_URL);
@@ -73,14 +71,14 @@ public class TwitterClient extends OAuthBaseClient {
 		
 	}
 	//get other users' info with recent tweet
-	public void getFriendInfo(JsonHttpResponseHandler handler, String screen_name) {
-		String url = getApiUrl("users/show.json?screen_name="+screen_name);
+	public void getFriendInfo(JsonHttpResponseHandler handler, String screenName) {
+		String url = getApiUrl("users/show.json?screen_name="+screenName);
     	client.get(url,null,handler);
 		
 	}
 
 	public void getFriendTimeline(JsonHttpResponseHandler handler, String screenName) {
-		String url = getApiUrl("statuses/user_timeline.json?screen_name="+screen_name);
+		String url = getApiUrl("statuses/user_timeline.json?screen_name="+screenName);
     	client.get(url,null,handler);
 	}
 
