@@ -11,5 +11,8 @@
     <string name="timeline_title">julie23</string>
     <string name="title_activity_compose">ComposeActivity</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="followers_label">FOLLOWERS</string>
+    <string name="following_label">FOLLOWING</string>
+    <string name="tweets_label">TWEETS</string>
 
 </resources>

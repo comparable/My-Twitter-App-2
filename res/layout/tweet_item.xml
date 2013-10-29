@@ -12,7 +12,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher"
+        android:background="@drawable/profile_image_shape" />
 
     <TextView
         android:id="@+id/tvId"
