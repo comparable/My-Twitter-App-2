@@ -1,6 +1,5 @@
 package com.julie.apps.mytwitter;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.json.JSONObject;

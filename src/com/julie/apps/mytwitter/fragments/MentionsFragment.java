@@ -3,6 +3,7 @@ package com.julie.apps.mytwitter.fragments;
 import org.json.JSONArray;
 
 import android.os.Bundle;
+import android.widget.ProgressBar;
 
 import com.julie.apps.mytwitter.EndlessScrollListener;
 import com.julie.apps.mytwitter.TwitterClientApp;
@@ -23,7 +24,7 @@ public class MentionsFragment extends TweetsListFragment {
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
 				long max_id = getTweetArray().get(totalItemsCount-1).getId();
-				TwitterClientApp.getRestClient().getOlderTweet(new JsonHttpResponseHandler(){
+				TwitterClientApp.getRestClient().getOlderMention(new JsonHttpResponseHandler(){
 					@Override
 					public void onSuccess(JSONArray jsonTweets) {
 						getAdapter().addAll(Tweet.fromJson(jsonTweets));
@@ -39,6 +40,7 @@ public class MentionsFragment extends TweetsListFragment {
 		TwitterClientApp.getRestClient().getMentions(new JsonHttpResponseHandler(){
 			public void onSuccess(JSONArray jsonTweets){
 				getAdapter().addAll(Tweet.fromJson(jsonTweets));
+				getPb().setVisibility(ProgressBar.INVISIBLE);
 			}
 		});
 		

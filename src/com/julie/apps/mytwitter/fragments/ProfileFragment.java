@@ -41,10 +41,12 @@ public class ProfileFragment extends Fragment {
 		TextView tvName = (TextView) getActivity().findViewById(R.id.tvName);
 		TextView tvTagline = (TextView) getActivity().findViewById(R.id.tvTagline);
 		TextView tvFollower = (TextView) getActivity().findViewById(R.id.tvFollower);
+		TextView tvTweets = (TextView) getActivity().findViewById(R.id.tvTweets);
 		TextView tvFollowing = (TextView) getActivity().findViewById(R.id.tvFollowing);
 		ImageView ivProfileImage = (ImageView) getActivity().findViewById(R.id.ivProfileImage);
 		tvName.setText(user.getName());
 		tvTagline.setText(user.getTagline());
+		tvTweets.setText(user.getNumOfTweets()+" Tweets");
 		tvFollower.setText(user.getFollowersCount()+" Followers");
 		tvFollowing.setText(user.getFriendsCount()+" Following");
 		ImageLoader.getInstance().displayImage(user.getProfileImageUrl(),ivProfileImage);

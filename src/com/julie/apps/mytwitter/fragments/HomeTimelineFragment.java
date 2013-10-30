@@ -5,21 +5,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Toast;
 
 import com.julie.apps.mytwitter.EndlessScrollListener;
+import com.julie.apps.mytwitter.R;
 import com.julie.apps.mytwitter.TwitterClientApp;
 import com.julie.apps.mytwitter.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class HomeTimelineFragment extends TweetsListFragment {
-
+	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		loadHomeTimeline();
-		
-		
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState){
@@ -39,12 +39,14 @@ public class HomeTimelineFragment extends TweetsListFragment {
 		});
 	}
 	
-	private void loadHomeTimeline() {
+	public void loadHomeTimeline() {
+		
 		TwitterClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler(){
 			public void onSuccess(JSONArray jsonTweets) {
+				 getAdapter().clear();
 				 getAdapter().addAll(Tweet.fromJson(jsonTweets));
+				 getPb().setVisibility(ProgressBar.INVISIBLE);
 			}
 		});	
-		
 	}
 }

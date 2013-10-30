@@ -5,6 +5,7 @@ import org.json.JSONArray;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.julie.apps.mytwitter.TwitterClientApp;
 import com.julie.apps.mytwitter.models.Tweet;
@@ -21,6 +22,7 @@ String screenName;
 		TwitterClientApp.getRestClient().getFriendTimeline(new JsonHttpResponseHandler(){
 			public void onSuccess(JSONArray jsonTweets) {
 				 getAdapter().addAll(Tweet.fromJson(jsonTweets));
+				 getPb().setVisibility(ProgressBar.INVISIBLE);				 
 			}
 		},screenName);
 	}

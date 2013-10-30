@@ -1,36 +1,31 @@
 package com.julie.apps.mytwitter;
 
-import org.json.JSONArray;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.julie.apps.mytwitter.fragments.HomeTimelineFragment;
 import com.julie.apps.mytwitter.fragments.MentionsFragment;
 import com.julie.apps.mytwitter.fragments.TweetsListFragment;
 import com.julie.apps.mytwitter.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 public class TimelineActivity extends FragmentActivity implements TabListener {
 
-	private int REQUEST_CODE = 100;
-	private TweetsAdapter tweetAdapter;
-	//private ListView lvTweets;
-	//private ArrayList<Tweet> tweets;
-	TweetsListFragment fragmentTweets;
+	private int REQUEST_CODE = 100;	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_timeline);		
+		setContentView(R.layout.activity_timeline);
+		
 		setUpNavigationTabs();
 	}
 
@@ -47,10 +42,15 @@ public class TimelineActivity extends FragmentActivity implements TabListener {
 				.setTag("MentionsFragment")
 				.setIcon(R.drawable.ic_mentions)
 				.setTabListener(this);
+		Tab tabProfile = actionBar.newTab().setText("Me")
+				.setTag("ProfileFragment")
+				.setIcon(R.drawable.ic_profile)
+				.setTabListener(this);
 					
 		
 		actionBar.addTab(tabHome);
 		actionBar.addTab(tabMention);
+		actionBar.addTab(tabProfile);
 		actionBar.selectTab(tabHome);
 		
 		
@@ -64,12 +64,20 @@ public class TimelineActivity extends FragmentActivity implements TabListener {
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		
 		android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
 		android.support.v4.app.FragmentTransaction ftransaction = manager.beginTransaction();
 		if(tab.getTag().equals("HomeTimelineFragment")){
 			ftransaction.replace(R.id.fragmentContainer, new HomeTimelineFragment());
-		} else {
+			
+		} else if(tab.getTag().equals("MentionsFragment")){
 			ftransaction.replace(R.id.fragmentContainer, new MentionsFragment());
+			
+		} else {
+			Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+			i.putExtra("tag", "user");
+	        startActivityForResult(i, REQUEST_CODE);
+	        
 		}
 		ftransaction.commit();
 	}
@@ -105,8 +113,10 @@ public class TimelineActivity extends FragmentActivity implements TabListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		  if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 			  Tweet t = (Tweet) data.getSerializableExtra("tweet");
-			  tweetAdapter.insert(t,0);
-			  tweetAdapter.notifyDataSetChanged();
+			  android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+			  TweetsListFragment tf = (TweetsListFragment) manager.findFragmentById(R.id.fragmentContainer);
+			  tf.getAdapter().insert(t,0);
+			  tf.getAdapter().notifyDataSetChanged();
 		  }
 		} 
 
@@ -136,18 +146,5 @@ public class TimelineActivity extends FragmentActivity implements TabListener {
 		}
 		
 	}
-	
-	public void onRefresh(MenuItem mi){
-		TwitterClientApp.getRestClient().getHomeTimeline(new JsonHttpResponseHandler(){
-			@Override
-			public void onSuccess(JSONArray jsonTweets) {
-				//tweets = Tweet.fromJson(jsonTweets);
-				//tweetAdapter = new TweetsAdapter(TimelineActivity.this, tweets);
-				//lvTweets.setAdapter(tweetAdapter);
-				//onSave();
-			}
-		});
-	}
-
 
 }

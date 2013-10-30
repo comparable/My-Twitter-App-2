@@ -82,6 +82,14 @@ public class TwitterClient extends OAuthBaseClient {
     	client.get(url,null,handler);
 	}
 
+	public void getOlderMention(
+			JsonHttpResponseHandler handler, long max_id) {
+		max_id = max_id -1;
+    	String url = getApiUrl("statuses/mentions_timeline.json?max_id="+max_id);
+    	client.get(url,null,handler);
+		
+	}
+
 	
     
     /* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint

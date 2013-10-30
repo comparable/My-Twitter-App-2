@@ -24,7 +24,6 @@ public class User implements Serializable {
 	
 	
 	
-	
     public String getName() {
         return this.name;
     }
@@ -41,7 +40,7 @@ public class User implements Serializable {
         return this.profileBackgroundImageUrl;
     }
 
-    public int getNumTweets() {
+    public int getNumOfTweets() {
         return this.numTweets;
     }
 
@@ -61,6 +60,7 @@ public class User implements Serializable {
     	return this.tagline;
     }
     
+	
     public User(){
     	super();
     }
@@ -79,6 +79,7 @@ public class User implements Serializable {
       		user.friendsCount = jsonObject.getInt("friends_count");
       		user.getProfileImageUrl = jsonObject.getString("profile_image_url");
       		user.tagline = jsonObject.getString("description");
+ 
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;
@@ -86,6 +87,8 @@ public class User implements Serializable {
       	// Return user object
       	return user;
       }
+
+
 
 	
 

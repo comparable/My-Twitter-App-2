@@ -11,5 +11,8 @@
         android:background="@drawable/frameshape">
 
     </ListView>
-
+<ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="245dp"
+            android:layout_height="251dp" />
 </RelativeLayout>

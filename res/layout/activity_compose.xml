@@ -45,28 +45,22 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/etTweet"
         android:layout_below="@+id/etTweet"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="16dp"
         android:background="@null"
         android:onClick="onTweet"
         android:src="@drawable/btn_tweet" />
 
     <Button
         android:id="@+id/btnCancel"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
         android:layout_alignLeft="@+id/etTweet"
-        android:layout_below="@+id/etTweet"
+        android:layout_alignTop="@+id/btnTweet"
+        android:background="@drawable/buttonshape"
         android:onClick="onCancel"
         android:text="Cancel"
-        android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/tvCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/btnTweet"
-        android:layout_alignRight="@+id/tvComposeName"
-        android:text="Count" />
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
