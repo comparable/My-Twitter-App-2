@@ -19,19 +19,25 @@ public class TweetsListFragment extends Fragment {
 	private ListView lvTweets;
 	private ArrayList<Tweet> tweets;
 	ProgressBar pb;
+	
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		tweets = new ArrayList<Tweet>();						
+		tweetAdapter = new TweetsAdapter(getActivity(), tweets);
+	}
+	
 	public View onCreateView(LayoutInflater inf, ViewGroup parent, Bundle savedInstanceState ){
-		return inf.inflate(R.layout.fragment_tweets_list, parent, false);	
-		
+		View v = inf.inflate(R.layout.fragment_tweets_list, parent, false);	
+		lvTweets = (ListView) v.findViewById(R.id.lvTweets);
+		lvTweets.setAdapter(tweetAdapter);	
+		pb = (ProgressBar) v.findViewById(R.id.pbLoading);
+		return v;
 	}
 
 	//you can get the access to activity when activity is created by onActivityCreated()
 	public void onActivityCreated(Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
-		tweets = new ArrayList<Tweet>();						
-		tweetAdapter = new TweetsAdapter(getActivity(), tweets);
-		lvTweets = (ListView)getActivity().findViewById(R.id.lvTweets);
-		lvTweets.setAdapter(tweetAdapter);	
-		pb = (ProgressBar) getActivity().findViewById(R.id.pbLoading);
+		
 	}
 	
 	public TweetsAdapter getAdapter(){
