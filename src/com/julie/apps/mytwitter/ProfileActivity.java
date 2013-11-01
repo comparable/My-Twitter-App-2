@@ -1,17 +1,14 @@
 package com.julie.apps.mytwitter;
 
-import com.julie.apps.mytwitter.fragments.FriendProfileFragment;
-import com.julie.apps.mytwitter.fragments.FriendTweetFragment;
-import com.julie.apps.mytwitter.fragments.HomeTimelineFragment;
-import com.julie.apps.mytwitter.fragments.MentionsFragment;
-import com.julie.apps.mytwitter.fragments.ProfileFragment;
-import com.julie.apps.mytwitter.fragments.UserTweetFragment;
-
-import android.app.FragmentTransaction;
-import android.app.ActionBar.Tab;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+
+import com.julie.apps.mytwitter.fragments.FriendProfileFragment;
+import com.julie.apps.mytwitter.fragments.FriendTweetFragment;
+import com.julie.apps.mytwitter.fragments.ProfileFragment;
+import com.julie.apps.mytwitter.fragments.UserTweetFragment;
 
 
 public class ProfileActivity extends FragmentActivity {
@@ -25,12 +22,17 @@ public class ProfileActivity extends FragmentActivity {
 		
 		android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
 		android.support.v4.app.FragmentTransaction ftransaction = manager.beginTransaction();
+		
+		//send screenName to fragments
+		Fragment fragment = FriendTweetFragment.newInstance(screenName);
+		Fragment profileFragment = FriendProfileFragment.newInstance(screenName);
+		
 		if(tag.equals("user")){
 			ftransaction.replace(R.id.listContainer, new UserTweetFragment());
 			ftransaction.replace(R.id.profileContainer, new ProfileFragment());
 		} else if (tag.equals("friend")) {
-			ftransaction.replace(R.id.listContainer, new FriendTweetFragment());
-			ftransaction.replace(R.id.profileContainer, new FriendProfileFragment());
+			ftransaction.replace(R.id.listContainer, fragment);
+			ftransaction.replace(R.id.profileContainer, profileFragment);
 		}
 		
 		ftransaction.commit();
